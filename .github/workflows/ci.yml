@@ -44,7 +44,7 @@ jobs:
         name: pkg
         path: pkg
 
-    - run: zip -r avatar-animator-windows.zip pkg/avatar-animator-win32-x64
+    - run: cd pkg && zip -r avatar-animator-windows.zip avatar-animator-win32-x64
 
     - name: Create draft release
       id: create_release
@@ -63,7 +63,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: avatar-animator-windows.zip
+        asset_path: pkg/avatar-animator-windows.zip
         asset_name: avatar-animator-windows.zip
         asset_content_type: application/zip
       
