@@ -17,7 +17,7 @@ TODO: add GIF demo.
 
 ## Supported platforms
 
-**Currently, only Windows is supported.** If you would like Avatar Animator on other platforms, mark your interest with 👍 in the [macOS](https://github.com/letmaik/virtualcam-avatar/issues/3) or [Linux](https://github.com/letmaik/virtualcam-avatar/issues/4) issue page.
+**Currently, only Windows is supported.** If you would like Avatar Animator on other platforms, mark your interest with 👍 in the [macOS](https://github.com/letmaik/avatar-animator/issues/3) or [Linux](https://github.com/letmaik/avatar-animator/issues/4) issue page.
 
 ## Prerequisites
 
@@ -36,13 +36,13 @@ You can also download and extract the obs-virtual-cam zip package directly witho
 
 ## Installation
 
-Download and unzip the latest version of Avatar Animator from the [release page](https://github.com/letmaik/avatar-animator).
+Download and unzip the latest version of Avatar Animator from the [release page](https://github.com/letmaik/avatar-animator/releases).
 
 ## Getting started
 
 From the Avatar Animator folder, launch `avatar-animator.exe` before your preferred video-conferencing apps and select `OBS-Camera` as your input stream in your video-conferencing application settings. Examples on how to do this for common video-conferencing apps are given in the table below:
 
-| Software Name   | Procedure                                                                                                                                     | Screenshot |
+| Application    | Procedure                                                                                                                                     | Screenshot |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | Zoom            | Go to `Settings` -> `Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                         | TODO       |
 | Skype           | Go to `Settings` -> `Audio & Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                 | TODO       |
@@ -53,4 +53,4 @@ From the Avatar Animator folder, launch `avatar-animator.exe` before your prefer
 
 ## Copyright and license
 
-Copyright notice is stated at the top of source files. Source code released under [Apache-2.0](LICENSE). Binary releases released under [GPL-2.0](LICENSE_BIN).
+Copyright notice is stated at the top of source files. Source code released under [Apache-2.0](LICENSE). Binary releases are currently released under [GPL-2.0](LICENSE_BIN) to conform with the licence requirement of [node-virtualcam](https://github.com/letmaik/node-virtualcam), also released under GPL-2.0.
