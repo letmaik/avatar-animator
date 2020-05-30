@@ -22,15 +22,13 @@ jobs:
         node-version: '10'
 
     - run: npm install
-    - run: npm run package
-
-    - run: zip -r pkg_archive/avatar-animator-${{ matrix.config.os-name }}.zip pkg/
+    - run: npm run package # creates pkg/avatar-animator-<os> folder
 
     - name: Store package as artifact
       uses: actions/upload-artifact@v1
       with:
-        name: pkg_archive
-        path: pkg_archive
+        name: pkg
+        path: pkg
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,8 +41,10 @@ jobs:
     - name: Download packages from artifact storage
       uses: actions/download-artifact@v1
       with:
-        name: pkg_archive
-        path: pkg_archive
+        name: pkg
+        path: pkg
+
+    - run: zip avatar-animator-windows.zip pkg/avatar-animator-win32-x64
 
     - name: Create draft release
       id: create_release
