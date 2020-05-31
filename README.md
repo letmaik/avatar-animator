@@ -3,8 +3,8 @@
 
 Avatar Animator is a fork of [Pose Animator](https://github.com/yemount/pose-animator), a fast and real-time 2D vector illustrations based on Google's [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) and [FaceMesh](https://github.com/tensorflow/tfjs-models/tree/master/facemesh) model. It wraps Pose Animator in an Electron app and sends it to a virtual camera for use in video-conferencing apps like Zoom, Microsoft Teams, and Google Meet.
 
-
 TODO: add GIF demo.
+
 
 <!-- omit in toc -->
 ## Table of Contents
@@ -13,12 +13,14 @@ TODO: add GIF demo.
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [How to add new avatars](#how-to-add-new-avatars)
+- [Development notes](#development-notes)
 - [Copyright and license](#copyright-and-license)
 
 
 ## Supported platforms
 
 **Currently, only Windows is supported.** If you would like Avatar Animator on other platforms, mark your interest with 👍 in the [macOS](https://github.com/letmaik/avatar-animator/issues/3) or [Linux](https://github.com/letmaik/avatar-animator/issues/4) issue page.
+
 
 ## Prerequisites
 
@@ -27,9 +29,11 @@ Download and install the following prerequisites:
 - [OBS Studio](https://obsproject.com/download)
 - OBS-VirtualCam for [Windows](https://github.com/Fenrirthviti/obs-virtual-cam/releases)
 
+
 ## Installation
 
 Download and unzip the latest version of Avatar Animator from the [release page](https://github.com/letmaik/avatar-animator/releases).
+
 
 ## Getting started
 
@@ -46,7 +50,13 @@ From the Avatar Animator folder, launch `avatar-animator.exe` before your prefer
 
 ## How to add new avatars
 
-See [AVATARS.md](AVATARS.md)
+See [AVATARS.md](AVATARS.md).
+
+
+## Development notes
+
+See [DEVELOP.md](DEVELOP.md).
+
 
 ## Copyright and license
 
