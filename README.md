@@ -13,6 +13,7 @@ Avatar Animator is a tool for generating real-time 2D vector-based avatar animat
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Getting started](#getting-started)
+- [How to create or add new avatars](#how-to-create-or-add-new-avatars)
 - [Development notes](#development-notes)
 - [Copyright and license](#copyright-and-license)
 
@@ -46,6 +47,11 @@ From the Avatar Animator folder, launch `avatar-animator.exe` before your prefer
 | Microsoft Teams | Click on your profile picture at the top of Teams, then `Settings` -> `Devices` and select `OBS-Camera` from the `Camera` drop-down menu.     | TODO       |
 | Google Meet     | Start a meeting, then click `Settings` > `General` and select `OBS-Camera` from the `Camera` drop-down menu.                                  | TODO       |
 | Slack           | Start a call, then click on the gear icon in the top left corner of the call window and select `OBS-Camera` from the `Camera` drop-down menu. | TODO       |
+
+
+## How to create or add new avatars
+
+To create new avatars, see [AVATARS.md](AVATARS.md). If you have already created one before and would like to add it to Avatar Animator, simply drag and drop the SVG into the Avatar Animator app.
 
 
 ## Development notes
