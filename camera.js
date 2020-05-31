@@ -141,6 +141,11 @@ async function loadVideo() {
   return video;
 }
 
+function toggleCameraHidden(hidden) {
+  const output = document.getElementById('output');
+  output.style.display = hidden ? 'none' : '';
+}
+
 const defaultPoseNetArchitecture = 'MobileNetV1';
 const defaultQuantBytes = 2;
 const defaultMultiplier = 1.0;
@@ -148,10 +153,17 @@ const defaultStride = 16;
 const defaultInputResolution = 200;
 
 const guiState = {
-  camera: null,
-  avatar: Object.keys(avatarSvgs)[0],
+  camera: {
+    device: '',
+    hidden: false
+  },
+  image: {
+    avatar: Object.keys(avatarSvgs)[0],
+    background: '#ffffff'
+  },
   debug: {
-    detection: true,
+    fps: false,
+    detection: false,
     avatar: false,
   },
 };
@@ -164,15 +176,20 @@ function setupGui(cameras) {
   gui.close();
 
   let camera = gui.addFolder('Camera')
-  camera.add(guiState, 'camera', cameras).onChange(() => switchCamera(guiState.camera))
+  camera.add(guiState.camera, 'device', Object.keys(cameras)).onChange(() => switchCamera(cameras[guiState.camera.device]))
+  camera.add(guiState.camera, 'hidden').onChange(() => toggleCameraHidden(guiState.camera.hidden))
+  camera.open();
 
   let image = gui.addFolder('Image');
-  image.add(guiState, 'avatar', Object.keys(avatarSvgs)).onChange(() => parseSVG(avatarSvgs[guiState.avatar]));
+  image.add(guiState.image, 'avatar', Object.keys(avatarSvgs)).onChange(() => parseSVG(avatarSvgs[guiState.image.avatar]));
+  image.addColor(guiState.image, 'background');
   image.open();
 
   let debug = gui.addFolder('Debug');
+  debug.add(guiState.debug, 'fps').onChange(() => guiState.debug.fps ? setupFPS() : removeFPS());
   debug.add(guiState.debug, 'detection');
   debug.add(guiState.debug, 'avatar');
+  debug.open();
 }
 
 /**
@@ -181,6 +198,10 @@ function setupGui(cameras) {
 function setupFPS() {
   stats.showPanel(0);  // 0: fps, 1: ms, 2: mb, 3+: custom
   document.getElementById('main').appendChild(stats.dom);
+}
+
+function removeFPS() {
+  document.getElementById('main').removeChild(stats.dom);
 }
 
 /**
@@ -205,7 +226,8 @@ function detectPoseInRealTime(video) {
     }
 
     // Begin monitoring code for frames per second
-    stats.begin();
+    if (guiState.debug.fps)
+      stats.begin();
 
     let poses = [];
    
@@ -232,7 +254,7 @@ function detectPoseInRealTime(video) {
     input.dispose();
 
     keypointCtx.clearRect(0, 0, videoWidth, videoHeight);
-    if (guiState.debug.detection) {
+    if (guiState.debug.detection && !guiState.camera.hidden) {
       poses.forEach(({score, keypoints}) => {
       if (score >= minPoseConfidence) {
           drawKeypoints(keypoints, minPartConfidence, keypointCtx);
@@ -252,7 +274,7 @@ function detectPoseInRealTime(video) {
     // White background
     var rect = new canvasScope.Path.Rectangle(0, 0, canvasWidth, canvasHeight);
     rect.sendToBack();
-    rect.fillColor = '#ffffff';
+    rect.fillColor = guiState.image.background;
     canvasScope.project.activeLayer.addChild(rect);
 
     if (poses.length >= 1 && illustration) {
@@ -294,7 +316,8 @@ function detectPoseInRealTime(video) {
     });
 
     // End monitoring code for frames per second
-    stats.end();
+    if (guiState.debug.fps)
+      stats.end();
 
     requestAnimationFrame(poseDetectionFrame);
   }
@@ -361,7 +384,8 @@ export async function bindPage() {
   const cameras = await getCameras()
 
   setupGui(cameras);
-  setupFPS();
+  if (guiState.debug.fps)
+    setupFPS();
   
   toggleLoadingUI(false);
   detectPoseInRealTime(video, posenet);
