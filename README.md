@@ -12,7 +12,7 @@ TODO: add GIF demo.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Getting started](#getting-started)
-- [How to add new avatars](#how-to-add-new-avatars)
+- [How to create or add new avatars](#how-to-create-or-add-new-avatars)
 - [Development notes](#development-notes)
 - [Copyright and license](#copyright-and-license)
 
@@ -48,9 +48,9 @@ From the Avatar Animator folder, launch `avatar-animator.exe` before your prefer
 | Slack           | Start a call, then click on the gear icon in the top left corner of the call window and select `OBS-Camera` from the `Camera` drop-down menu. | TODO       |
 
 
-## How to add new avatars
+## How to create or add new avatars
 
-See [AVATARS.md](AVATARS.md).
+To create new avatars, see [AVATARS.md](AVATARS.md). If have already created one before and would like to add it Avatar Animator, simply drag and drop the SVG into the Avatar Animator app.
 
 
 ## Development notes
