@@ -12,6 +12,7 @@ TODO: add GIF demo.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Getting started](#getting-started)
+- [How to add new avatars](#how-to-add-new-avatars)
 - [Copyright and license](#copyright-and-license)
 
 
@@ -42,6 +43,10 @@ From the Avatar Animator folder, launch `avatar-animator.exe` before your prefer
 | Google Meet     | Start a meeting, then click `Settings` > `General` and select `OBS-Camera` from the `Camera` drop-down menu.                                  | TODO       |
 | Slack           | Start a call, then click on the gear icon in the top left corner of the call window and select `OBS-Camera` from the `Camera` drop-down menu. | TODO       |
 
+
+## How to add new avatars
+
+See [AVATARS.md](AVATARS.md)
 
 ## Copyright and license
 
