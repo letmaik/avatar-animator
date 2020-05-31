@@ -51,7 +51,7 @@ From the Avatar Animator folder, launch `avatar-animator.exe` before your prefer
 
 ## How to create or add new avatars
 
-To create new avatars, see [AVATARS.md](AVATARS.md). If have already created one before and would like to add it Avatar Animator, simply drag and drop the SVG into the Avatar Animator app.
+To create new avatars, see [AVATARS.md](AVATARS.md). If you have already created one before and would like to add it to Avatar Animator, simply drag and drop the SVG into the Avatar Animator app.
 
 
 ## Development notes
