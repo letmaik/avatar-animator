@@ -28,12 +28,12 @@ This process is very manual and time consuming at the moment and would benefit f
             |---- path 3
 ```
 3. Embed the sample skeleton in `skeleton` group into your illustration by moving the joints around.
-4. Save as SVG with name.
+4. Save as SVG with your preferred name.
 5. TODO: Open Avatar Animator and load the new SVG from the `avatar` tab.
 
 ## Generate from an existing design
 
 1. Download and open an existing illustration from the [illustration folder](resources/illustration) in Inkscape and create a copy, then close sample skeleton SVG. **Note**: do not add, remove or rename joints (circles) in the group. Avatar Animator relies on these named paths to read the skeleton’s initial position. Missing joints will cause errors.
 2. From `Object` > `Objects...` menu, expand the `illustration` layer. From here you can replace path elements with your own ones. Make sure to flatten all subgroups so that the layer `illustration` only contains path elements, composite paths are not supported at the moment. Notice that some path elements are grouped together, for example eyes, jaw, nose. Make sure to keep these groups and only replace the path elements inside these groups.
-3. Save as SVG with name.
+3. Save as SVG with your preferred name.
 4. TODO: Open Avatar Animator and load the new SVG from the `avatar` tab.
