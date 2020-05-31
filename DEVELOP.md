@@ -20,4 +20,4 @@ To compile components and recompile them when files change use `npm run watch`. 
 
 ## Package
 
-To create a folder named `avatar-animator-<os>` containing the main program and its dependencies use `npm run package`.
+To create a folder named `pkg/avatar-animator-<os>` containing the main program and its dependencies use `npm run package`.
