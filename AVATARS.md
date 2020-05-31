@@ -12,7 +12,7 @@ This process is very manual and time consuming at the moment and would benefit f
 
 ## Prerequisites
 
-- [Inkscape => 1.0](https://inkscape.org/release/)
+- [Inkscape >= 1.0](https://inkscape.org/release/)
 
 
 ## Generate from scratch (work in progress)
