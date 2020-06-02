@@ -1,13 +1,14 @@
-<div align="center">
 
 <!-- omit in toc -->
-# Avatar Animator
+# Avatar Animator ![CI](https://github.com/letmaik/avatar-animator/workflows/CI/badge.svg) [![Release](https://img.shields.io/github/v/release/letmaik/avatar-animator?include_prereleases)](https://github.com/letmaik/avatar-animator/releases/latest)
 
-![CI](https://github.com/letmaik/avatar-animator/workflows/CI/badge.svg) [![Release](https://img.shields.io/github/v/release/letmaik/avatar-animator?include_prereleases)](https://github.com/letmaik/avatar-animator/releases/latest)
+
+<div align="center">
 
 [Installation](#installation) | [Getting started](#getting-started) | [Configuration](#configuration) | [Development notes](#development-notes) | [Copyright and license](#copyright-and-license)
 
 </div>
+
 
 Avatar Animator generates real-time 2D vector-based avatar animations using webcams or other video-input sources. It can be used with several video-conferencing apps such as [Zoom](https://zoom.us/), [Skype](https://www.skype.com/), [Microsoft Team](https://www.microsoft.com/en-ww/microsoft-365/microsoft-teams/group-chat-software), [Google Meet](https://meet.google.com/), and [Slack](https://slack.com/). The project is a fork of [Pose Animator](https://github.com/yemount/pose-animator), a fast and real-time 2D vector illustrations animator based on Google's [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) and [FaceMesh](https://github.com/tensorflow/tfjs-models/tree/master/facemesh) model. Avatar Animator wraps Pose Animator in an [Electron](https://www.electronjs.org/) app and sends the video steam to a virtual camera using [node-virtualcam](https://github.com/letmaik/node-virtualcam).
 
