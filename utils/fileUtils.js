@@ -29,11 +29,15 @@ export class FileUtils {
               if (files.length < 1) {
                 return;
               }
+              let file = e.dataTransfer.files[0];
               let reader = new FileReader();
               reader.onload = (event) => {
-                handler(event.target.result);
+                handler(event.target.result, file.name);
               }
-              reader.readAsText(e.dataTransfer.files[0]);
+              if (file.name.endsWith('.svg'))
+                reader.readAsText(file);
+              else
+                reader.readAsDataURL(file);
             }
           }, false);
     }

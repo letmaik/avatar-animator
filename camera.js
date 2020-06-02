@@ -52,6 +52,7 @@ let canvasScope;
 let canvasWidth = 640;
 let canvasHeight = canvasWidth * ratio;
 let flippedCanvas = null;
+let backgroundImage = null;
 
 // ML models
 let facemesh;
@@ -209,6 +210,7 @@ function removeFPS() {
  * happens. This function loops with a requestAnimationFrame method.
  */
 function detectPoseInRealTime(video) {
+  const illustrationCanvas = document.querySelector('.illustration-canvas');
   const canvas = document.getElementById('output');
   const keypointCanvas = document.getElementById('keypoints');
   const videoCtx = canvas.getContext('2d');
@@ -271,12 +273,6 @@ function detectPoseInRealTime(video) {
 
     canvasScope.project.clear();
 
-    // White background
-    var rect = new canvasScope.Path.Rectangle(0, 0, canvasWidth, canvasHeight);
-    rect.sendToBack();
-    rect.fillColor = guiState.image.background;
-    canvasScope.project.activeLayer.addChild(rect);
-
     if (poses.length >= 1 && illustration) {
       Skeleton.flipPose(poses[0]);
 
@@ -299,7 +295,17 @@ function detectPoseInRealTime(video) {
       canvasHeight / videoHeight, 
       new canvasScope.Point(0, 0));
 
-    let illustrationCanvas = document.querySelector('.illustration-canvas');
+    let bg;
+    if (backgroundImage) {
+      bg = new canvasScope.Raster(backgroundImage);
+      bg.position = canvasScope.view.center;
+    } else {
+      bg = new canvasScope.Path.Rectangle(0, 0, canvasWidth, canvasHeight);
+      bg.fillColor = guiState.image.background;
+    }
+    canvasScope.project.activeLayer.addChild(bg);
+    bg.sendToBack();
+
     // Need to re-draw each frame on a flipped canvas because
     // the original canvas's transformation matrix is not applied
     // when using getImageData().
@@ -323,6 +329,20 @@ function detectPoseInRealTime(video) {
   }
 
   poseDetectionFrame();
+}
+
+function loadBackground(data) {
+  backgroundImage = document.createElement('img');
+  backgroundImage.onload = () => {
+    let bgCanvas = document.createElement('canvas');
+    bgCanvas.width = canvasWidth;
+    bgCanvas.height = canvasHeight;
+    bgCanvas.getContext('2d').drawImage(backgroundImage, 
+      0, 0, backgroundImage.width, backgroundImage.height,
+      0, 0, canvasWidth, canvasHeight);
+    backgroundImage = bgCanvas;
+  };
+  backgroundImage.src = data;
 }
 
 function setupCanvas() {
@@ -393,7 +413,13 @@ export async function bindPage() {
 
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-FileUtils.setDragDropHandler((result) => {parseSVG(result)});
+FileUtils.setDragDropHandler((data, filename) => {
+  if (filename.endsWith('.svg')) {
+    parseSVG(data);
+  } else {
+    loadBackground(data);
+  }
+});
 
 async function parseSVG(target) {
   let svgScope = await SVGUtils.importSVG(target /* SVG string or file path */);
