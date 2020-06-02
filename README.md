@@ -5,12 +5,9 @@
 
 ![CI](https://github.com/letmaik/avatar-animator/workflows/CI/badge.svg) [![Release](https://img.shields.io/github/v/release/letmaik/avatar-animator?include_prereleases)](https://github.com/letmaik/avatar-animator/releases/latest)
 
-[Overview](#overview) | [Installation](#installation) | [Getting started](#getting-started) | [Configuration](#configuration) | [Development notes](#development-notes) | [Copyright and license](#copyright-and-license)
+[Installation](#installation) | [Getting started](#getting-started) | [Configuration](#configuration) | [Development notes](#development-notes) | [Copyright and license](#copyright-and-license)
 
 </div>
-
-
-## Overview
 
 Avatar Animator generates real-time 2D vector-based avatar animations using webcams or other video-input sources. It can be used with several video-conferencing apps such as [Zoom](https://zoom.us/), [Skype](https://www.skype.com/), [Microsoft Team](https://www.microsoft.com/en-ww/microsoft-365/microsoft-teams/group-chat-software), [Google Meet](https://meet.google.com/), and [Slack](https://slack.com/). The project is a fork of [Pose Animator](https://github.com/yemount/pose-animator), a fast and real-time 2D vector illustrations animator based on Google's [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) and [FaceMesh](https://github.com/tensorflow/tfjs-models/tree/master/facemesh) model. Avatar Animator wraps Pose Animator in an [Electron](https://www.electronjs.org/) app and sends the video steam to a virtual camera using [node-virtualcam](https://github.com/letmaik/node-virtualcam).
 
@@ -49,10 +46,10 @@ Launch `avatar-animator.exe` then select `OBS-Camera` as your input stream in yo
 
 | Application    | Procedure                                                                                                                                     | Screenshot |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| Zoom            | Go to `Settings` -> `Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                         | <img src="./images/zoom.png" alt="Avatar Animator on Zoom: configuration" width="300"> |
+| Zoom            | Go to `Settings` -> `Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                         | <img src="./images/zoom.png" alt="Avatar Animator on Zoom: configuration" width="400"> |
 | Skype           | Go to `Settings` -> `Audio & Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                 | TODO       |
-| Microsoft Teams | Click on your profile picture at the top of Teams, then `Settings` -> `Devices` and select `OBS-Camera` from the `Camera` drop-down menu.     | <img src="./images/ms-teams.png" alt="Avatar Animator on Microsoft Teams: configuration" width="300"> |
-| Google Meet     | Start a meeting, then click `Settings` > `General` and select `OBS-Camera` from the `Camera` drop-down menu.                                  | <img src="./images/google-meet.png" alt="Avatar Animator on Google Meet: configuration" width="300"> |
+| Microsoft Teams | Click on your profile picture at the top of Teams, then `Settings` -> `Devices` and select `OBS-Camera` from the `Camera` drop-down menu.     | <img src="./images/ms-teams.png" alt="Avatar Animator on Microsoft Teams: configuration" width="400"> |
+| Google Meet     | Start a meeting, then click `Settings` > `General` and select `OBS-Camera` from the `Camera` drop-down menu.                                  | <img src="./images/google-meet.png" alt="Avatar Animator on Google Meet: configuration" width="400"> |
 | Slack           | Start a call, then click on the gear icon in the top left corner of the call window and select `OBS-Camera` from the `Camera` drop-down menu. | TODO       |
 
 
