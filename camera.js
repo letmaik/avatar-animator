@@ -434,5 +434,16 @@ async function parseSVG(target) {
   illustration = new PoseIllustration(canvasScope);
   illustration.bindSkeleton(skeleton, svgScope);
 }
-    
+
+function registerMessageHandler() {
+  if (!ipcRenderer)
+    return;
+  ipcRenderer.on('avatar', (event, obj) => {
+    console.log(obj)
+    parseSVG(obj.svg)
+  })
+}
+
 bindPage();
+
+registerMessageHandler();

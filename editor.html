@@ -13,33 +13,27 @@
             justify-content: center;
         }
 
-        .canvas-container {
+        .svg-container {
             display: flex;
             justify-content: center;
             position: relative;
         }
 
-        .illustration-canvas {
+        #svg {
             border: 1px solid #eeeeee;
         }
 
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            color: black;
-        }
-
-        .footer-text {
-            max-width: 600px;
-            text-align: center;
-            margin: auto;
+        #tooltip {
+            color: #eeeeee;
+            background: black;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            font-family: serif;
         }
 
         @media only screen and (max-width: 600px) {
 
-            .footer-text,
             .dg {
                 display: none;
             }
@@ -50,18 +44,10 @@
 </head>
 
 <body>
-    <div id="info" style='display:none'>
+    <div class="svg-container">
+        <div id="svg"></div>
     </div>
-    <div class="canvas-container">
-        <canvas class="illustration-canvas"></canvas>
-    </div>
-    <div class="footer">
-        <div class="footer-text">
-          <p>
-            This is the avatar editor.
-          </p>
-        </div>
-      </div>
+    <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
     <script src="editor.js"></script>
 </body>
 
