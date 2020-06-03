@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Avatar Animator - Editor</title>
+    <base href="./dist">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .illustration-canvas {
+            border: 1px solid #eeeeee;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: black;
+        }
+
+        .footer-text {
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .footer-text,
+            .dg {
+                display: none;
+            }
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="info" style='display:none'>
+    </div>
+    <div class="canvas-container">
+        <canvas class="illustration-canvas"></canvas>
+    </div>
+    <div class="footer">
+        <div class="footer-text">
+          <p>
+            This is the avatar editor.
+          </p>
+        </div>
+      </div>
+    <script src="editor.js"></script>
+</body>
+
+</html>

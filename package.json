@@ -9,6 +9,8 @@
     "node": ">=8.9.0"
   },
   "dependencies": {
+    "@svgdotjs/svg.draggable.js": "^3.0.2",
+    "@svgdotjs/svg.js": "^3.0.16",
     "@tensorflow-models/facemesh": "^0.0.1",
     "@tensorflow-models/posenet": "^2.2.1",
     "@tensorflow/tfjs": "^1.7.0",
@@ -23,8 +25,10 @@
     "postinstall": "electron-rebuild -w node-virtualcam && npm run build",
     "start": "electron .",
     "package": "electron-packager . --asar --out pkg",
-    "watch": "cross-env NODE_ENV=development parcel camera.html --no-hmr --no-source-maps --public-url ./",
-    "build": "cross-env NODE_ENV=development parcel build camera.html --no-minify --no-source-maps --public-url ./",
+    "watch": "cross-env NODE_ENV=development parcel *.html --no-hmr --no-source-maps --public-url ./",
+    "watch-browser-camera": "cross-env NODE_ENV=development parcel camera.html --no-hmr --no-source-maps --open",
+    "watch-browser-editor": "cross-env NODE_ENV=development parcel editor.html --no-hmr --no-source-maps --open",
+    "build": "cross-env NODE_ENV=development parcel build *.html --no-minify --no-source-maps --public-url ./",
     "lint": "eslint ."
   },
   "browser": {

@@ -35,7 +35,12 @@ import * as abstractSVG from './resources/illustration/abstract.svg';
 import * as blathersSVG from './resources/illustration/blathers.svg';
 import * as tomNookSVG from './resources/illustration/tom-nook.svg';
 
-const { ipcRenderer } = window.require('electron')
+try {
+  var { ipcRenderer } = window.require('electron');
+} catch(e) {
+  // not running inside electron
+  var ipcRenderer = null;
+}
 
 const ratio = 9/16;
 
@@ -306,20 +311,22 @@ function detectPoseInRealTime(video) {
     canvasScope.project.activeLayer.addChild(bg);
     bg.sendToBack();
 
-    // Need to re-draw each frame on a flipped canvas because
-    // the original canvas's transformation matrix is not applied
-    // when using getImageData().
-    let flippedCanvasContext = flippedCanvas.getContext('2d');
-    flippedCanvasContext.drawImage(illustrationCanvas, 0, 0);
-    let imageData = flippedCanvasContext.getImageData(
-      0, 0, illustrationCanvas.width, illustrationCanvas.height);
-    
-    // TODO: ipc uses JSON and serializes buffers into base64, too inefficient?
-    ipcRenderer.send('frame', {
-      data: imageData.data, // RGBA Uint8ClampedArray
-      width: imageData.width,
-      height: imageData.height
-    });
+    if (ipcRenderer) {
+      // Need to re-draw each frame on a flipped canvas because
+      // the original canvas's transformation matrix is not applied
+      // when using getImageData().
+      let flippedCanvasContext = flippedCanvas.getContext('2d');
+      flippedCanvasContext.drawImage(illustrationCanvas, 0, 0);
+      let imageData = flippedCanvasContext.getImageData(
+        0, 0, illustrationCanvas.width, illustrationCanvas.height);
+      
+      // TODO: ipc uses JSON and serializes buffers into base64, too inefficient?
+      ipcRenderer.send('frame', {
+        data: imageData.data, // RGBA Uint8ClampedArray
+        width: imageData.width,
+        height: imageData.height
+      });
+    }
 
     // End monitoring code for frames per second
     if (guiState.debug.fps)
@@ -400,9 +407,9 @@ export async function bindPage() {
     info.style.display = 'block';
     throw e;
   }
-
+  
   const cameras = await getCameras()
-
+  
   setupGui(cameras);
   if (guiState.debug.fps)
     setupFPS();
