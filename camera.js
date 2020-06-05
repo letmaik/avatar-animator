@@ -417,10 +417,10 @@ export async function bindPage() {
   toggleLoadingUI(false);
   detectPoseInRealTime(video, posenet);
 
-  document.getElementById('editor_link').onclick = function(ev) {
+  document.querySelector('#editor-button button').addEventListener('click', (ev) => {
     ev.preventDefault();
     openEditorWindow();
-  }
+  })
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
