@@ -15,7 +15,7 @@ try {
 
 const guiState = {
   paint: {
-    enabled: 'off',
+    tool: 'none',
     color: '#ffffff'
   },
   display: {
@@ -31,7 +31,7 @@ function setupGui() {
   gui.open();
 
   let paint = gui.addFolder('Paint');
-  paint.add(guiState.paint, 'enabled', ['off', 'color'])
+  paint.add(guiState.paint, 'tool', ['none', 'color'])
   paint.addColor(guiState.paint, 'color');
   paint.open();
 
@@ -127,10 +127,10 @@ async function parseSVG(target) {
     if (this.node.id)
       return // ignore keypoints
     this.click(function() {
-      if (guiState.paint.enabled === 'off') {
+      if (guiState.paint.tool === 'none') {
         return
       }
-      if (guiState.paint.enabled === 'color') {
+      if (guiState.paint.tool === 'color') {
         this.node.style.fill = guiState.paint.color
       }
       sendUpdatedAvatar()
