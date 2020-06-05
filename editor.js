@@ -34,6 +34,19 @@ function setupGui() {
 
 export async function bindPage() {
   setupGui();
+
+  document.querySelector('#export button').addEventListener('click', () => {
+    let svgContainer = document.getElementById('svg');
+    let svg = svgContainer.innerHTML;
+    var data = new Blob([svg], {type: 'text/svg'});
+    var elem = window.document.createElement('a');
+    elem.href = window.URL.createObjectURL(data);
+    elem.download = 'avatar.svg';
+    document.body.appendChild(elem);
+    elem.click();
+    document.body.removeChild(elem);
+    window.URL.revokeObjectURL(url);
+  })
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
