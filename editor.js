@@ -14,7 +14,11 @@ try {
 }
 
 const guiState = {
-  debug: {
+  paint: {
+    enabled: 'off',
+    color: '#ffffff'
+  },
+  display: {
     labels: true,
   },
 };
@@ -26,9 +30,14 @@ function setupGui() {
   const gui = new dat.GUI({width: 200});
   gui.open();
 
-  let debug = gui.addFolder('Debug');
-  debug.add(guiState.debug, 'labels');
-  debug.open();
+  let paint = gui.addFolder('Paint');
+  paint.add(guiState.paint, 'enabled', ['off', 'color'])
+  paint.addColor(guiState.paint, 'color');
+  paint.open();
+
+  let display = gui.addFolder('Display');
+  display.add(guiState.display, 'labels');
+  display.open();
 }
 
 
@@ -69,6 +78,12 @@ async function parseSVG(target) {
   let skeleton = svg.findOne('[id^=skeleton]')
   let illustration = svg.findOne('[id^=illustration]')
 
+  function sendUpdatedAvatar() {
+    ipcRenderer.send('avatar', {
+      svg: svgContainer.innerHTML
+    });
+  }
+
   skeleton.each(function(i, children) {
     // hide bones
     if (!(this instanceof Circle)) {
@@ -81,7 +96,7 @@ async function parseSVG(target) {
 
     // show keypoint IDs as tooltips
     this.on('mouseover', evt => {
-      if (!guiState.debug.labels)
+      if (!guiState.display.labels)
         return;
       let tooltip = document.getElementById("tooltip");
       tooltip.innerHTML = this.node.id;
@@ -104,13 +119,23 @@ async function parseSVG(target) {
       illustration.find(`[id^=${this.node.id}]`).move(this.x(), this.y())
     })
     if (ipcRenderer) {
-      this.on('dragend.namespace', function(e) {
-          ipcRenderer.send('avatar', {
-            svg: svgContainer.innerHTML
-          });
-      })
+      this.on('dragend.namespace', sendUpdatedAvatar)
     }
   })
+
+  illustration.each(function(i, children) {
+    if (this.node.id)
+      return // ignore keypoints
+    this.click(function() {
+      if (guiState.paint.enabled === 'off') {
+        return
+      }
+      if (guiState.paint.enabled === 'color') {
+        this.node.style.fill = guiState.paint.color
+      }
+      sendUpdatedAvatar()
+    })
+  }, true)
 }
 
 function registerMessageHandler() {
