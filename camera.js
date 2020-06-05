@@ -68,6 +68,7 @@ let nmsRadius = 30.0;
 
 // Misc
 const stats = new Stats();
+let currentAvatarSvg;
 const avatarSvgs = {
   'girl': girlSVG.default,
   'boy': boySVG.default,
@@ -394,7 +395,6 @@ export async function bindPage() {
   facemesh = await facemesh_module.load();
 
   setStatusText('Loading Avatar file...');
-  let t0 = new Date();
   await parseSVG(Object.values(avatarSvgs)[0]);
 
   setStatusText('Setting up camera...');
@@ -416,6 +416,11 @@ export async function bindPage() {
   
   toggleLoadingUI(false);
   detectPoseInRealTime(video, posenet);
+
+  document.getElementById('editor_link').onclick = function(ev) {
+    ev.preventDefault();
+    openEditorWindow();
+  }
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
@@ -429,6 +434,7 @@ FileUtils.setDragDropHandler((data, filename) => {
 });
 
 async function parseSVG(target) {
+  currentAvatarSvg = target;
   let svgScope = await SVGUtils.importSVG(target /* SVG string or file path */);
   let skeleton = new Skeleton(svgScope);
   illustration = new PoseIllustration(canvasScope);
@@ -442,6 +448,19 @@ function registerMessageHandler() {
     console.log(obj)
     parseSVG(obj.svg)
   })
+}
+
+async function openEditorWindow() {
+  if (!/^[\s\S]*</.test(currentAvatarSvg)) {
+    const response = await fetch(currentAvatarSvg)
+    currentAvatarSvg = await response.text()
+  }
+  const avatar = {
+    svg: currentAvatarSvg
+  }
+  ipcRenderer.send('openEditor', avatar)
+
+  console.log(currentAvatarSvg)
 }
 
 bindPage();

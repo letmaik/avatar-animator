@@ -32,18 +32,7 @@ function createWindow () {
     });
   
     mainWindow.loadFile('dist/camera.html')
-/*
-    let editorWindow = new BrowserWindow({
-      width: windowWidth,
-      height: windowHeight,
-      autoHideMenuBar: true,
-      webPreferences: {
-        nodeIntegration: true
-      }
-    })
-  
-    editorWindow.loadFile('dist/editor.html')
-*/
+
     let width = 0
     let height = 0  
     let frameIdx = 0;  
@@ -68,6 +57,23 @@ function createWindow () {
       }
     })
 
+    ipcMain.on('openEditor', (event, arg) => {
+      const avatar = arg;
+      let editorWindow = new BrowserWindow({
+        width: windowWidth,
+        height: windowHeight,
+        autoHideMenuBar: true,
+        webPreferences: {
+          nodeIntegration: true
+        }
+      })
+      editorWindow.webContents.on('did-finish-load', () => {
+        editorWindow.webContents.send('avatar', avatar);
+      });
+      editorWindow.loadFile('dist/editor.html')
+    })
+
+    // forward avatar from editor to main window
     ipcMain.on('avatar', (event, arg) => {
       mainWindow.webContents.send('avatar', arg)
     })

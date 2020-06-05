@@ -99,5 +99,15 @@ async function parseSVG(target) {
     }
   })
 }
+
+function registerMessageHandler() {
+  if (!ipcRenderer)
+    return;
+  ipcRenderer.on('avatar', (event, obj) => {
+    console.log(obj)
+    parseSVG(obj.svg)
+  })
+}
     
 bindPage();
+registerMessageHandler();
