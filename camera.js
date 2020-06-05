@@ -421,6 +421,7 @@ export async function bindPage() {
     ev.preventDefault();
     openEditorWindow();
   })
+  document.querySelector('#editor-button').style.display = 'block';
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
