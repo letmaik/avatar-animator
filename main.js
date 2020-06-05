@@ -62,6 +62,8 @@ function createWindow () {
       let editorWindow = new BrowserWindow({
         width: windowWidth,
         height: windowHeight,
+        x: mainWindow.getPosition()[0] + 50,
+        y: mainWindow.getPosition()[1] + 50,
         autoHideMenuBar: true,
         webPreferences: {
           nodeIntegration: true
