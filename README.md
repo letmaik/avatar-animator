@@ -14,7 +14,7 @@ Avatar Animator generates real-time 2D vector-based avatar animations using webc
 
 ![Gif animation showing a demo of Avatar Animator using Microsoft Teams](images/demo.gif)
 
-**Figure 1**: Demo of Avatar Animator using Microsoft Teams. Instead of using a real webcam as the input source to Avatar Animator, the input is simulated with [OBS Studio](https://obsproject.com/) and [OBS-VirtualCam](https://github.com/Fenrirthviti/obs-virtual-cam) from a [YouTube video](https://www.youtube.com/watch?v=x_lHk9Lf-ow), leading to the following processing chain: YouTube (browser) 🠚 OBS Studio (desktop capture) 🠚 OBS-VirtualCam (1) 🠚 Avatar Animator 🠚 OBS-VirtualCam (2) 🠚 Microsoft Teams. Why? Just for fun...
+**Demo of Avatar Animator using Microsoft Teams**. Instead of using a real webcam as the input source to Avatar Animator, the input is simulated with [OBS Studio](https://obsproject.com/) and [OBS-VirtualCam](https://github.com/Fenrirthviti/obs-virtual-cam) from a [YouTube video](https://www.youtube.com/watch?v=x_lHk9Lf-ow), leading to the following processing chain: YouTube (browser) 🠚 OBS Studio (desktop capture) 🠚 OBS-VirtualCam (1) 🠚 Avatar Animator 🠚 OBS-VirtualCam (2) 🠚 Microsoft Teams. Why? Just for fun...
 
 
 ## Installation
@@ -56,12 +56,13 @@ Launch `avatar-animator.exe` then select `OBS-Camera` as your input stream in yo
 
 ## Configuration
 
-The configuration panel (top right in Avatar Animator; figure 2) allows the **choice of camera, avatar, background color, and display of debug information**. To **add a new background image**, drag and drop it into Avatar Animator (note that new avatars will not be added to the `avatar` drop down menu). A simplified editor (figure 3) for **modifying existing avatars** is provided where anchor-points and colors can be modified. Currently, when a skeleton point is dragged (only those are modifiable), the position of any name-matching illustration keypoints are set to the same position. For more information on how to **create a new avatar or modify and exiting one**, see [AVATARS.md](AVATARS.md).
+The configuration panel (top right in Avatar Animator; figure below left) allows the **choice of camera, avatar, background color, and display of debug information**. To **add a new background image**, drag and drop it into Avatar Animator. To **create a new avatar or modify and exiting one**, see [AVATARS.md](AVATARS.md), then to **add a new avatar** drag and drop it into Avatar Animator (note that new avatars will not be added to the `avatar` drop down menu).
 
-|                                                                                         |                                                                                  |
-| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| <img src="./images/control-panel.png" alt="Control panel" height="395"> | <img src="./images/editor.png" alt="Editor" height="395"> |
-| **Figure 2**: Control panel.                                                          | **Figure 3**: Editor.                                                          |
+In the latest versions of Avatar Animator, a simplified avatar editor (figure below right) is also available. This allows to **modify anchor (skeleton) points and colors** for existing avatars. Currently, when an anchor point is dragged (only those are modifiable), the position of any name-matching illustration anchor points are set to the same position.
+
+| <img src="./images/control-panel.png" alt="Control panel" height="395"> | <img src="./images/editor.png" alt="Editor" height="395">            |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **Control panel**. Accessible from the top right in Avatar Animator.    | **Editor**.     Accessible from the  main window in Avatar Animator. |
 
 ## Development notes
 
