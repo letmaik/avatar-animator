@@ -56,7 +56,7 @@ Launch `avatar-animator.exe` then select `OBS-Camera` as your input stream in yo
 
 ## Configuration
 
-The configuration panel (top right in Avatar Animator; figure below left) allows the **choice of camera, avatar, background color, and display of debug information**. To **add a new background image**, drag and drop it into Avatar Animator. To **create a new avatar or modify and exiting one**, see [AVATARS.md](AVATARS.md), then to **add a new avatar** drag and drop it into Avatar Animator (note that new avatars will not be added to the `avatar` drop down menu).
+The configuration panel (top right in Avatar Animator; figure below left) allows the **choice of camera, avatar, background color, and display of debug information**. To **add a new background image**, drag and drop a PNG or JPEG file into Avatar Animator. To **create a new avatar or modify an existing one**, see [AVATARS.md](AVATARS.md). To **use a new or modified avatar** drag and drop the SVG file into Avatar Animator (note that the dropped avatar will not be added to the `avatar` drop down menu).
 
 In the latest versions of Avatar Animator, a simplified avatar editor (figure below right) is also available. This allows to **modify anchor (skeleton) points and colors** for existing avatars. Currently, when an anchor point is dragged, the position of any name-matching illustration anchor points are set to the same position.
 
