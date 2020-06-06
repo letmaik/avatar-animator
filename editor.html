@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Avatar Animator - Editor</title>
+    <base href="./dist">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        html, body {
+            max-width: 100%;
+            max-height: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .svg-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        #tooltip {
+            color: #eeeeee;
+            background: black;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            font-family: serif;
+        }
+
+        #export {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+        }
+
+        #undo {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .dg {
+                display: none;
+            }
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="svg-container">
+        <div id="svg"></div>
+    </div>
+    <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
+    <div id="undo">
+        <button>Undo</button>
+    </div>
+    <div id="export">
+        <button>Export SVG</button>
+    </div>
+    <script src="editor.js"></script>
+</body>
+
+</html>

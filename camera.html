@@ -33,6 +33,12 @@
             position: absolute;
         }
 
+        #editor-button {
+            left: 10px;
+            bottom: 10px;
+            position: absolute;
+        }
+
         .illustration-canvas {
             border: 1px solid #eeeeee;
         }
@@ -128,12 +134,15 @@
             <canvas id="output" class="camera-canvas"></canvas>
             <canvas id="keypoints" class="camera-canvas"></canvas>
         </div>
-        <canvas class="illustration-canvas"></cavnas>
+        <div id="editor-button" style='display:none'>
+            <button>Editor</button>
+        </div>
+        <canvas class="illustration-canvas"></canvas>
     </div>
     <div class="footer">
         <div class="footer-text">
           <p>
-            Avatar Animator is based on <a href="https://github.com/yemount/pose-animator" target="_blank">Pose Animator</a>.<br>
+            <a href="https://github.com/letmaik/avatar-animator" target="_blank">Avatar Animator</a> is based on <a href="https://github.com/yemount/pose-animator" target="_blank">Pose Animator</a>.<br>
           </p>
         </div>
       </div>

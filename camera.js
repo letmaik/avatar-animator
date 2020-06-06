@@ -35,7 +35,12 @@ import * as abstractSVG from './resources/illustration/abstract.svg';
 import * as blathersSVG from './resources/illustration/blathers.svg';
 import * as tomNookSVG from './resources/illustration/tom-nook.svg';
 
-const { ipcRenderer } = window.require('electron')
+try {
+  var { ipcRenderer } = window.require('electron');
+} catch(e) {
+  // not running inside electron
+  var ipcRenderer = null;
+}
 
 const ratio = 9/16;
 
@@ -63,6 +68,7 @@ let nmsRadius = 30.0;
 
 // Misc
 const stats = new Stats();
+let currentAvatarSvg;
 const avatarSvgs = {
   'girl': girlSVG.default,
   'boy': boySVG.default,
@@ -306,20 +312,22 @@ function detectPoseInRealTime(video) {
     canvasScope.project.activeLayer.addChild(bg);
     bg.sendToBack();
 
-    // Need to re-draw each frame on a flipped canvas because
-    // the original canvas's transformation matrix is not applied
-    // when using getImageData().
-    let flippedCanvasContext = flippedCanvas.getContext('2d');
-    flippedCanvasContext.drawImage(illustrationCanvas, 0, 0);
-    let imageData = flippedCanvasContext.getImageData(
-      0, 0, illustrationCanvas.width, illustrationCanvas.height);
-    
-    // TODO: ipc uses JSON and serializes buffers into base64, too inefficient?
-    ipcRenderer.send('frame', {
-      data: imageData.data, // RGBA Uint8ClampedArray
-      width: imageData.width,
-      height: imageData.height
-    });
+    if (ipcRenderer) {
+      // Need to re-draw each frame on a flipped canvas because
+      // the original canvas's transformation matrix is not applied
+      // when using getImageData().
+      let flippedCanvasContext = flippedCanvas.getContext('2d');
+      flippedCanvasContext.drawImage(illustrationCanvas, 0, 0);
+      let imageData = flippedCanvasContext.getImageData(
+        0, 0, illustrationCanvas.width, illustrationCanvas.height);
+      
+      // TODO: ipc uses JSON and serializes buffers into base64, too inefficient?
+      ipcRenderer.send('frame', {
+        data: imageData.data, // RGBA Uint8ClampedArray
+        width: imageData.width,
+        height: imageData.height
+      });
+    }
 
     // End monitoring code for frames per second
     if (guiState.debug.fps)
@@ -387,7 +395,6 @@ export async function bindPage() {
   facemesh = await facemesh_module.load();
 
   setStatusText('Loading Avatar file...');
-  let t0 = new Date();
   await parseSVG(Object.values(avatarSvgs)[0]);
 
   setStatusText('Setting up camera...');
@@ -400,15 +407,21 @@ export async function bindPage() {
     info.style.display = 'block';
     throw e;
   }
-
+  
   const cameras = await getCameras()
-
+  
   setupGui(cameras);
   if (guiState.debug.fps)
     setupFPS();
   
   toggleLoadingUI(false);
   detectPoseInRealTime(video, posenet);
+
+  document.querySelector('#editor-button button').addEventListener('click', (ev) => {
+    ev.preventDefault();
+    openEditorWindow();
+  })
+  document.querySelector('#editor-button').style.display = 'block';
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
@@ -422,10 +435,35 @@ FileUtils.setDragDropHandler((data, filename) => {
 });
 
 async function parseSVG(target) {
+  currentAvatarSvg = target;
   let svgScope = await SVGUtils.importSVG(target /* SVG string or file path */);
   let skeleton = new Skeleton(svgScope);
   illustration = new PoseIllustration(canvasScope);
   illustration.bindSkeleton(skeleton, svgScope);
 }
-    
+
+function registerMessageHandler() {
+  if (!ipcRenderer)
+    return;
+  ipcRenderer.on('avatar', (event, obj) => {
+    console.log(obj)
+    parseSVG(obj.svg)
+  })
+}
+
+async function openEditorWindow() {
+  if (!/^[\s\S]*</.test(currentAvatarSvg)) {
+    const response = await fetch(currentAvatarSvg)
+    currentAvatarSvg = await response.text()
+  }
+  const avatar = {
+    svg: currentAvatarSvg
+  }
+  ipcRenderer.send('openEditor', avatar)
+
+  console.log(currentAvatarSvg)
+}
+
 bindPage();
+
+registerMessageHandler();

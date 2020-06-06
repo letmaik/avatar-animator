@@ -12,7 +12,7 @@ let lastReceivedFrame = null;
 let isQuitting = false;
 
 function createWindow () {
-    let win = new BrowserWindow({
+    let mainWindow = new BrowserWindow({
       width: windowWidth,
       height: windowHeight,
       autoHideMenuBar: true,
@@ -24,12 +24,14 @@ function createWindow () {
     })
 
     // https://github.com/electron/electron/issues/1344#issuecomment-392844066
-    win.webContents.on('new-window', function(event, url){
+    mainWindow.webContents.on('new-window', function(event, url){
+      if (url.endsWith('editor.html'))
+        return
       event.preventDefault();
       shell.openExternal(url);
     });
   
-    win.loadFile('dist/camera.html')
+    mainWindow.loadFile('dist/camera.html')
 
     let width = 0
     let height = 0  
@@ -53,6 +55,29 @@ function createWindow () {
       if (width != arg.width || height != arg.height) {
         throw Error(`received frame with mismatching size: ${arg.width}x${arg.height}`)
       }
+    })
+
+    ipcMain.on('openEditor', (event, arg) => {
+      const avatar = arg;
+      let editorWindow = new BrowserWindow({
+        width: windowWidth,
+        height: windowHeight,
+        x: mainWindow.getPosition()[0] + 50,
+        y: mainWindow.getPosition()[1] + 50,
+        autoHideMenuBar: true,
+        webPreferences: {
+          nodeIntegration: true
+        }
+      })
+      editorWindow.webContents.on('did-finish-load', () => {
+        editorWindow.webContents.send('avatar', avatar);
+      });
+      editorWindow.loadFile('dist/editor.html')
+    })
+
+    // forward avatar from editor to main window
+    ipcMain.on('avatar', (event, arg) => {
+      mainWindow.webContents.send('avatar', arg)
     })
 }
   
