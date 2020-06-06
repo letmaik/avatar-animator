@@ -60,7 +60,7 @@ The configuration panel (top right in Avatar Animator; figure below left) allows
 
 In the latest versions of Avatar Animator, a simplified avatar editor (figure below right) is also available. This allows to **modify anchor (skeleton) points and colors** for existing avatars. Currently, when an anchor point is dragged (only those are modifiable), the position of any name-matching illustration anchor points are set to the same position.
 
-| <img src="./images/control-panel.png" alt="Control panel" height="395"> | <img src="./images/editor.png" alt="Editor" height="395">            |
+| <img src="./images/control-panel.png" alt="Control panel" height="300"> | <img src="./images/editor.png" alt="Editor" height="300" width="450">            |
 | ----------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | **Control panel**. Accessible from the top right in Avatar Animator.    | **Editor**.     Accessible from the  main window in Avatar Animator. |
 
