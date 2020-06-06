@@ -23,6 +23,23 @@ const guiState = {
   },
 };
 
+// https://stackoverflow.com/a/31023470
+function createArrayWithLimitedLength(length) {
+  var array = new Array();
+
+  array.push = function () {
+      if (this.length >= length) {
+          this.shift();
+      }
+      return Array.prototype.push.apply(this,arguments);
+  }
+
+  return array;
+}
+
+const undoCount = 100;
+const undoHistory = createArrayWithLimitedLength(undoCount);
+
 /**
  * Sets up dat.gui controller on the top-right of the window
  */
@@ -40,9 +57,25 @@ function setupGui() {
   display.open();
 }
 
+function storeUndo() {
+  const svgContainer = document.getElementById('svg');
+  const svg = svgContainer.innerHTML;
+  undoHistory.push(svg);
+}
+
+async function undo() {
+  if (undoHistory.length == 1)
+    return
+  undoHistory.pop()
+  const svg = undoHistory[undoHistory.length - 1];
+  await parseSVG(svg, true);
+  sendUpdatedAvatar();
+}
 
 export async function bindPage() {
   setupGui();
+
+  document.querySelector('#undo button').addEventListener('click', undo)
 
   document.querySelector('#export button').addEventListener('click', () => {
     let svgContainer = document.getElementById('svg');
@@ -66,23 +99,42 @@ FileUtils.setDragDropHandler((data, filename) => {
   }
 });
 
-async function parseSVG(target) {
+function sendUpdatedAvatar() {
+  if (!ipcRenderer)
+    return;
+  const svgContainer = document.getElementById('svg')
+  const svg = svgContainer.innerHTML;
+  ipcRenderer.send('avatar', {
+    svg: svg
+  });
+}
+
+async function parseSVG(target, inUndo) {
   let svgContainer = document.getElementById('svg')
+
+  // panning changes the viewbox, need to keep the current one
+  let originalViewbox = null;
+  if (inUndo) {
+    const svgEl = svgContainer.children[0]
+    originalViewbox = svgEl.getAttribute('viewBox')
+  }
+
   svgContainer.innerHTML = target
   let svgEl = svgContainer.children[0]
 
+  if (inUndo) {
+    svgEl.setAttribute('viewBox', originalViewbox)
+  }
+  
+  if (!inUndo)
+    storeUndo();
+  
   let svg = SVG(svgEl)
   svg.panZoom({
     zoomFactor: 0.5
   })
   let skeleton = svg.findOne('[id^=skeleton]')
   let illustration = svg.findOne('[id^=illustration]')
-
-  function sendUpdatedAvatar() {
-    ipcRenderer.send('avatar', {
-      svg: svgContainer.innerHTML
-    });
-  }
 
   skeleton.each(function(i, children) {
     // hide bones
@@ -118,9 +170,10 @@ async function parseSVG(target) {
         return
       illustration.find(`[id^=${this.node.id}]`).move(this.x(), this.y())
     })
-    if (ipcRenderer) {
-      this.on('dragend.namespace', sendUpdatedAvatar)
-    }
+    this.on('dragend.namespace', () => {
+      sendUpdatedAvatar();
+      storeUndo();
+    })
   })
 
   illustration.each(function(i, children) {
@@ -133,7 +186,8 @@ async function parseSVG(target) {
       if (guiState.paint.tool === 'color') {
         this.node.style.fill = guiState.paint.color
       }
-      sendUpdatedAvatar()
+      sendUpdatedAvatar();
+      storeUndo();
     })
   }, true)
 }
@@ -142,7 +196,6 @@ function registerMessageHandler() {
   if (!ipcRenderer)
     return;
   ipcRenderer.on('avatar', (event, obj) => {
-    console.log(obj)
     parseSVG(obj.svg)
   })
 }

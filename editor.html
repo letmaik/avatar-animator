@@ -26,10 +26,6 @@
             position: relative;
         }
 
-        #svg {
-            border: 1px solid #eeeeee;
-        }
-
         #tooltip {
             color: #eeeeee;
             background: black;
@@ -41,10 +37,14 @@
 
         #export {
             position: fixed;
-            bottom: 0;
-            right: 0;
-            margin-right: 15px;
-            margin-bottom: 15px;
+            bottom: 15px;
+            right: 15px;
+        }
+
+        #undo {
+            position: fixed;
+            top: 15px;
+            left: 15px;
         }
 
         @media only screen and (max-width: 600px) {
@@ -63,6 +63,9 @@
         <div id="svg"></div>
     </div>
     <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
+    <div id="undo">
+        <button>Undo</button>
+    </div>
     <div id="export">
         <button>Export SVG</button>
     </div>
