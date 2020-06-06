@@ -18,19 +18,20 @@
     "@tensorflow/tfjs-converter": "^1.7.0",
     "@tensorflow/tfjs-core": "^1.7.0",
     "face-api.js": "^0.22.1",
-    "node-virtualcam": "^0.1.0",
+    "node-virtualcam": "^0.1.1",
     "paper": "^0.12.1",
     "stats.js": "^0.17.0"
   },
   "scripts": {
-    "postinstall": "electron-rebuild -w node-virtualcam && npm run build",
+    "postinstall": "electron-rebuild -w node-virtualcam",
     "start": "electron .",
-    "package": "electron-packager . --asar --out pkg",
+    "package": "npm run build && npm run thirdparty-notices && electron-packager . --extra-resource=LICENSE_BIN --extra-resource=ThirdPartyNotices.txt --asar --overwrite --out pkg",
     "watch": "cross-env NODE_ENV=development parcel *.html --no-hmr --no-source-maps --public-url ./",
     "watch-browser-camera": "cross-env NODE_ENV=development parcel camera.html --no-hmr --no-source-maps --open",
     "watch-browser-editor": "cross-env NODE_ENV=development parcel editor.html --no-hmr --no-source-maps --open",
     "build": "cross-env NODE_ENV=development parcel build *.html --no-minify --no-source-maps --public-url ./",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "thirdparty-notices": "cross-env NODE_ENV=production yarn licenses generate-disclaimer > ThirdPartyNotices.txt"
   },
   "browser": {
     "crypto": false
