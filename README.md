@@ -14,7 +14,7 @@ Avatar Animator generates real-time 2D vector-based avatar animations using webc
 
 ![Gif animation showing a demo of Avatar Animator using Microsoft Teams](images/demo.gif)
 
-**Demo of Avatar Animator using Microsoft Teams**. Instead of using a real webcam as the input source to Avatar Animator, the input is simulated with [OBS Studio](https://obsproject.com/) and [OBS-VirtualCam](https://github.com/Fenrirthviti/obs-virtual-cam) from a [YouTube video](https://www.youtube.com/watch?v=x_lHk9Lf-ow), leading to the following processing chain: YouTube (browser) 🠚 OBS Studio (desktop capture) 🠚 OBS-VirtualCam (1) 🠚 Avatar Animator 🠚 OBS-VirtualCam (2) 🠚 Microsoft Teams. Why? Just for fun...
+**Figure 1**: Demo of Avatar Animator using Microsoft Teams. Instead of using a real webcam as the input source to Avatar Animator, the input is simulated with [OBS Studio](https://obsproject.com/) and [OBS-VirtualCam](https://github.com/Fenrirthviti/obs-virtual-cam) from a [YouTube video](https://www.youtube.com/watch?v=x_lHk9Lf-ow), leading to the following processing chain: YouTube (browser) 🠚 OBS Studio (desktop capture) 🠚 OBS-VirtualCam (1) 🠚 Avatar Animator 🠚 OBS-VirtualCam (2) 🠚 Microsoft Teams. Why? Just for fun...
 
 
 ## Installation
@@ -45,25 +45,23 @@ Download and unzip the latest version of Avatar Animator from the [release page]
 
 Launch `avatar-animator.exe` then select `OBS-Camera` as your input stream in your video-conferencing app settings. Examples on how to do this for several video-conferencing apps are given in the table below:
 
-| Application    | Procedure                                                                                                                                     | Screenshot |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| Zoom            | Go to `Settings` -> `Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                         | <img src="./images/zoom.png" alt="Avatar Animator on Zoom: configuration" width="400"> |
-| Skype           | Go to `Settings` -> `Audio & Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                 | TODO       |
-| Microsoft Teams | Click on your profile picture at the top of Teams, then `Settings` -> `Devices` and select `OBS-Camera` from the `Camera` drop-down menu.     | <img src="./images/ms-teams.png" alt="Avatar Animator on Microsoft Teams: configuration" width="400"> |
-| Google Meet     | Start a meeting, then click `Settings` > `General` and select `OBS-Camera` from the `Camera` drop-down menu.                                  | <img src="./images/google-meet.png" alt="Avatar Animator on Google Meet: configuration" width="400"> |
-| Slack           | Start a call, then click on the gear icon in the top left corner of the call window and select `OBS-Camera` from the `Camera` drop-down menu. | TODO       |
+| Application     | Procedure                                                                                                                                     | Screenshot                                                                                            |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Zoom            | Go to `Settings` -> `Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                         | <img src="./images/zoom.png" alt="Avatar Animator on Zoom: configuration" width="600">                |
+| Skype           | Go to `Settings` -> `Audio & Video` and select `OBS-Camera` from the `Camera` drop-down menu.                                                 | TODO                                                                                                  |
+| Microsoft Teams | Click on your profile picture at the top of Teams, then `Settings` -> `Devices` and select `OBS-Camera` from the `Camera` drop-down menu.     | <img src="./images/ms-teams.png" alt="Avatar Animator on Microsoft Teams: configuration" width="600"> |
+| Google Meet     | Start a meeting, then click `Settings` > `General` and select `OBS-Camera` from the `Camera` drop-down menu.                                  | <img src="./images/google-meet.png" alt="Avatar Animator on Google Meet: configuration" width="600">  |
+| Slack           | Start a call, then click on the gear icon in the top left corner of the call window and select `OBS-Camera` from the `Camera` drop-down menu. | TODO                                                                                                  |
 
 
 ## Configuration
 
-The configuration panel (top right in Avatar Animator; figure below) allows the configuration of cameras, avatars and background colours, and display of debug information. To import new avatars or a background images, drag and drop them into Avatar Animator (note that new avatars will not be added to the `avatar` drop down menu). To create a new avatar, follow the instructions as detailed in [AVATARS.md](AVATARS.md).
+The configuration panel (top right in Avatar Animator; figure 2) allows the **choice of camera, avatar, background color, and display of debug information**. To **add a new background image**, drag and drop it into Avatar Animator (note that new avatars will not be added to the `avatar` drop down menu). A simplified editor (figure 3) for **modifying existing avatars** is provided where anchor-points and colors can be modified. Currently, when a skeleton point is dragged (only those are modifiable), the position of any name-matching illustration keypoints are set to the same position. For more information on how to **create a new avatar or modify and exiting one**, see [AVATARS.md](AVATARS.md).
 
-<div align="center">
-    <img src="./images/control-panel.png" alt="Avatar Animator control panel" width="200">
-    <br>
-    <b>Avatar Animator control panel.</b>
-</div>
-
+|                                                                                         |                                                                                  |
+| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| <img src="./images/control-panel.png" alt="Control panel" height="395"> | <img src="./images/editor.png" alt="Editor" height="395"> |
+| **Figure 2**: Control panel.                                                          | **Figure 3**: Editor.                                                          |
 
 ## Development notes
 
