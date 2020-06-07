@@ -73,3 +73,5 @@ node_modules/
 .env
 
 pkg
+
+ThirdPartyNotices.txt
